@@ -1,0 +1,15 @@
+FeatureExtracter:
+  Architecture:
+    name: ResNet18
+    num_classes: 10
+  Shape:
+    width: 450
+    height: 450
+  size_sample: 32
+  probability_threshold: 0.8
+  model_dir: ./mode_weight/pytorch.pth
+
+GUI:
+  name: Sudoku
+  window_size: 1280x720
+  canvas_size: 510
