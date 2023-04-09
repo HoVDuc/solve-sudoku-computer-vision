@@ -106,8 +106,9 @@ class GUI:
 
     def selectImage(self):
         filetype = (
+            ('All file', '*.*'),
             ('image files', '*.jpg'),
-            ('All file', '*.*')
+            ('image files', '*.png')
         )
         image = filedialog.askopenfilename(filetypes=filetype)
         im = cv2.imread(image)
