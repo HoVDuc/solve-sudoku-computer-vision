@@ -10,7 +10,7 @@ from PIL import Image, ImageTk
 class GUI:
 
     def __init__(self, config) -> None:
-        self.config = config["FeatureExtracter"]
+        self.config = config
         self.title = config["GUI"]["name"]
         self.window_size = config["GUI"]["window_size"]
         self.canvas_size = config["GUI"]["canvas_size"]

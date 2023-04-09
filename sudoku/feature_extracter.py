@@ -7,26 +7,25 @@ from PIL import Image
 from sudoku.trainer.model.backbone.resnet18 import ResNet_18
 from sudoku.trainer.model.backbone.Lenet import CNN
 import matplotlib.pyplot as plt
-import tensorflow as tf
 
 
 class FeatureExtracter:
 
     def __init__(self, image, config) -> None:
         self.image = image
-        self.WIDTH = config["Shape"]["width"]
-        self.HEIGHT = config["Shape"]["height"]
-        self.model_dir = config["model_dir"]
-        model_name = config["Architecture"]["name"]
-        num_classes = config["Architecture"]["num_classes"]
+        self.WIDTH = config["FeatureExtracter"]["Shape"]["width"]
+        self.HEIGHT = config["FeatureExtracter"]["Shape"]["height"]
+        self.model_dir = config["FeatureExtracter"]["model_dir"]
+        model_name = config["Architecture"]["Backbone"]["name"]
+        num_classes = config["Architecture"]["Backbone"]["num_classes"]
         assert model_name in ["ResNet18", "CNN"], "model not suppored!"
         model = {
             "ResNet18": ResNet_18,
             "CNN": CNN
         }
         self.model = model[model_name](3, num_classes=num_classes)
-        self.probability_threshold = config["probability_threshold"]
-        self.size_sample = config["size_sample"]
+        self.probability_threshold = config["FeatureExtracter"]["probability_threshold"]
+        self.size_sample = config["FeatureExtracter"]["size_image"]
 
     def preprocessing(self, img):
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -89,15 +88,17 @@ class FeatureExtracter:
 
         transform = torchvision.transforms.Compose([
             torchvision.transforms.Resize(self.size_sample),
+            # torchvision.transforms.ColorJitter(hue=.05, saturation=.05),
             torchvision.transforms.ToTensor()
         ])
 
         return transform(pil_img).numpy()
 
     def getPredict(self, boxes):
-        self.model.load_state_dict(torch.load(self.model_dir))
+        self.model.load_state_dict(torch.load(self.model_dir, map_location=torch.device('cpu')))
         imgs = torch.Tensor(np.array(list(map(self.transform, boxes))))
         y_hat = self.model(imgs)
+        y_hat = torch.softmax(y_hat, dim=1)
         value, indices = torch.max(y_hat, dim=1)
         getClass = np.where(value < self.probability_threshold, 0, indices)
         return getClass.reshape(9, 9)

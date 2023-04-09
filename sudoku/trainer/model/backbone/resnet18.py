@@ -47,7 +47,7 @@ class ResNet_18(nn.Module):
         self.layer4 = self.__make_layer(256, 512, stride=2)
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(256, num_classes)
+        self.fc = nn.Linear(512, num_classes)
         self.init_params()
 
     def __make_layer(self, in_channels, out_channels, stride):
@@ -86,11 +86,12 @@ class ResNet_18(nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
+        x = self.layer4(x)
 
         x = self.avgpool(x)
         x = x.view(x.shape[0], -1)
         x = self.fc(x)
-        return nn.functional.softmax(x, 1)
+        return x
 
     def identity_downsample(self, in_channels, out_channels):
 

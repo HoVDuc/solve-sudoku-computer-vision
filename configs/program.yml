@@ -1,13 +1,36 @@
-FeatureExtracter:
-  Architecture:
+Global:
+  use_gpu: true
+  save_model_dir: ./mode_weight/
+  epoch_num: 50
+  use_checkpoints: true
+  checkpoint_dir: ./mode_weight/pytorch_20230409_001728.pth
+
+Architecture:
+  Backbone:
     name: ResNet18
     num_classes: 10
+
+Optimizer:
+  name: Adam
+  learning_rate: 5e-7
+
+Dataloader:
+  imgs_size: 32
+  test_size: 0.3
+  batch_size: 64
+  shuffle: true
+
+Train:
+  dataset: NumberDataset
+  data_dir: ./train_data/number_classifer/
+
+FeatureExtracter:
   Shape:
     width: 450
     height: 450
-  size_sample: 32
-  probability_threshold: 0.8
-  model_dir: ./mode_weight/pytorch.pth
+  size_image: 32
+  model_dir: ./mode_weight/best_checkpoint.pth
+  probability_threshold: 0.98
 
 GUI:
   name: Sudoku
