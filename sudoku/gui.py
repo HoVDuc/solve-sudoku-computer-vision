@@ -65,7 +65,7 @@ class GUI:
 
     def create_button(self):
         s = ttk.Style()
-        s.configure(style="my.TButton", font=('Consoles', 20))
+        s.configure(style="my.TButton", font=('Console', 20))
         self.btn_selectImage = ttk.Button(
             self.canvas_buttom, text='Select image', padding=(20, 10), style='my.TButton', command=self.selectImage)
         self.btn_selectImage.pack(side=tk.LEFT)
