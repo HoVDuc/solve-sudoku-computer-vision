@@ -72,6 +72,7 @@ Chức năng bao gồm:
 
 ### Demo
 Từ giao diện chính chọn ```Select image``` sau đó chọn ```Run```
+
 ![alt](data/docs/giao-dien-chuong-trinh-run.png)
 
 Nếu khi ```Run``` câu đố có bị sai có thể sửa lại bằng cách chọn vào ô có số bị sai và sửa lại số. Và nhấn ```Test```

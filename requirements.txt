@@ -1,8 +1,7 @@
 gdown
-opencv-python
-matplotlib
-pillow
-matplotlib
-tk
 pyyaml
 tqdm
+tk
+matplotlib
+pillow
+opencv-python
