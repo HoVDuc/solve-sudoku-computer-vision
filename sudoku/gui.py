@@ -15,14 +15,19 @@ class GUI:
         self.window_size = config["GUI"]["window_size"]
         self.canvas_size = config["GUI"]["canvas_size"]
         self.root = tk.Tk()
+        self.widget = None
         
         self.setting_default()
         self.create_canvas()
         self.create_button()
+        self.create_num_button()
 
     def setting_default(self):
         self.root.title(self.title)
         self.root.geometry(self.window_size)
+
+    def onclick(self, event=None):
+        self.widget = event.widget
 
     def create_canvas_grid(self, master):
         canvas = tk.Canvas(master, width=32, height=40)
@@ -33,6 +38,9 @@ class GUI:
 
         entry = ttk.Entry(canvas, width=5)
         entry.pack()
+        entry.bind('<Button-1>', self.onclick)
+        entry.focus_get()
+
         return _canvas, entry
 
     def create_canvas(self):
@@ -40,7 +48,14 @@ class GUI:
         self.canvas.pack(pady=(10, 0))
 
         self.canvas_buttom = tk.Canvas(self.root, width=250, height=250)
-        self.canvas_buttom.pack(pady=(50, 0))
+        self.canvas_buttom.pack(pady=(10, 0))
+
+        self.canvas_func_buttom = tk.Canvas(self.canvas_buttom, width=250, height=250)
+        self.canvas_func_buttom.pack(pady=(0, 0))
+        
+        self.canvas_num_buttom = tk.Canvas(self.canvas_buttom, width=250, height=250)
+        self.canvas_num_buttom.pack(pady=(10, 0))
+
 
         self.canvas1 = tk.Canvas(
             self.canvas, width=self.canvas_size, height=self.canvas_size, bg='black')
@@ -62,33 +77,64 @@ class GUI:
                 canvas_image, entry_pred = self.create_canvas_grid(canvas_row)
                 self.canvas_image.append(canvas_image)
                 self.entry_pred.append(entry_pred)
+                
+
+    def setNum(self, x):
+        if isinstance(self.widget, ttk.Entry):
+            self.widget.delete(0, 'end')
+            self.widget.insert(0, x)
+        else:
+            pass
+
+
+    def create_num_button(self):
+        self.btn_1 = ttk.Button(self.canvas_num_buttom, text="1", command=lambda: self.setNum(1))
+        self.btn_1.grid(row=0, column=0)
+        self.btn_2 = ttk.Button(self.canvas_num_buttom, text="2", command=lambda: self.setNum(2))
+        self.btn_2.grid(row=0, column=1)
+        self.btn_3 = ttk.Button(self.canvas_num_buttom, text="3", command=lambda: self.setNum(3))
+        self.btn_3.grid(row=0, column=2)
+        self.btn_4 = ttk.Button(self.canvas_num_buttom, text="4", command=lambda: self.setNum(4))
+        self.btn_4.grid(row=1, column=0)
+        self.btn_5 = ttk.Button(self.canvas_num_buttom, text="5", command=lambda: self.setNum(5))
+        self.btn_5.grid(row=1, column=1)
+        self.btn_6 = ttk.Button(self.canvas_num_buttom, text="6", command=lambda: self.setNum(6))
+        self.btn_6.grid(row=1, column=2)
+        self.btn_7 = ttk.Button(self.canvas_num_buttom, text="7", command=lambda: self.setNum(7))
+        self.btn_7.grid(row=2, column=0)
+        self.btn_8 = ttk.Button(self.canvas_num_buttom, text="8", command=lambda: self.setNum(8))
+        self.btn_8.grid(row=2, column=1)
+        self.btn_9 = ttk.Button(self.canvas_num_buttom, text="9", command=lambda: self.setNum(9))
+        self.btn_9.grid(row=2, column=2)
+        self.btn_0 = ttk.Button(self.canvas_num_buttom, text="0", command=lambda: self.setNum(0))
+        self.btn_0.grid(row=3, column=1)
 
     def create_button(self):
         s = ttk.Style()
-        s.configure(style="my.TButton", font=('Console', 20))
+        s.configure(style="my.TButton", font=('Helvetica', 10))
         self.btn_selectImage = ttk.Button(
-            self.canvas_buttom, text='Select image', padding=(20, 10), style='my.TButton', command=self.selectImage)
+            self.canvas_func_buttom, text='Select image', padding=(20, 10), style='my.TButton', command=self.selectImage)
         self.btn_selectImage.grid(column=0, row=0)
 
         self.btn_run = ttk.Button(
-            self.canvas_buttom, text='Run', padding=(20, 10), style='my.TButton', command=self.feature_extracter)
+            self.canvas_func_buttom, text='Run', padding=(20, 10), style='my.TButton', command=self.feature_extracter)
         self.btn_run.grid(column=1, row=0)
 
         self.btn_test = ttk.Button(
-            self.canvas_buttom, text='Test', padding=(20, 10), style='my.TButton', command=self.getNumber2Entry
+            self.canvas_func_buttom, text='Test', padding=(20, 10), style='my.TButton', command=self.getNumber2Entry
         )
         self.btn_test.grid(column=2, row=0)
 
         self.btn_back = ttk.Button(
-            self.canvas_buttom, text='Back', padding=(20, 10), style='my.TButton', command=self.back_canvas)
+            self.canvas_func_buttom, text='Back', padding=(20, 10), style='my.TButton', command=self.back_canvas)
         self.btn_back.grid(column=0, row=1)
 
         self.btn_save = ttk.Button(
-            self.canvas_buttom, text="Save", padding=(20, 10), style='my.TButton', command=self.save)
+            self.canvas_func_buttom, text="Save", padding=(20, 10), style='my.TButton', command=self.save)
         self.btn_save.grid(column=1, row=1)
 
         self.btn_delete = ttk.Button(
-            self.canvas_buttom, text="Reset", padding=(20, 10), style='my.TButton', command=self.reset)
+            self.canvas_func_buttom, text="Reset", padding=(20, 10), style='my.TButton', command=self.reset)
         self.btn_delete.grid(column=2, row=1)
 
     def update(self):
@@ -107,6 +153,7 @@ class GUI:
     def selectImage(self):
         filetype = (
             ('image files', '*.jpg'),
+            ('image files', '*.png'),
             ('All file', '*.*')
         )
         image = filedialog.askopenfilename(filetypes=filetype)
