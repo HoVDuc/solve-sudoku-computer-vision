@@ -35,9 +35,16 @@ solve sudoku puzzles with computer vision
     pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu116
 ```
 
-## 
-
 ## Run
+
+```bash
+    # Download model weights
+    mkdir weights
+    cd weights
+    pip install -U --no-cache-dir gdown --pre
+    gdown 1-Nx4iIv2RBlQ6uEhTo-jLHPg9XPer6w3
+    cd ..
+```
 
 ```bash
     # Run file program.py

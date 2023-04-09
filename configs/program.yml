@@ -1,9 +1,9 @@
 Global:
   use_gpu: true
-  save_model_dir: ./mode_weight/
+  save_model_dir: ./weights/
   epoch_num: 50
   use_checkpoints: true
-  checkpoint_dir: ./mode_weight/pytorch_20230409_001728.pth
+  checkpoint_dir: ./weights/pytorch_20230409_001728.pth
 
 Architecture:
   Backbone:
@@ -29,7 +29,7 @@ FeatureExtracter:
     width: 450
     height: 450
   size_image: 32
-  model_dir: ./mode_weight/best_checkpoint.pth
+  model_dir: ./weights/best_checkpoint-2.pth
   probability_threshold: 0.98
 
 GUI:
