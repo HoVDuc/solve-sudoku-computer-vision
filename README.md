@@ -8,6 +8,10 @@ solve sudoku puzzles with computer vision
 - Pytorch 
 
 ```bash
+    # clone repo
+    git clone https://github.com/HoVDuc/solve-sudoku-computer-vision.git
+    cd solve-sudoku-computer-vision
+
     # Tạo môi trường với conda
     conda create -n sudoku_env
     conda activate sudoku_env
@@ -17,8 +21,11 @@ solve sudoku puzzles with computer vision
 
     # Cài Pytorch và torchvision nếu sử dụng CPU
     pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-    
-    # clone repo
-    git clone https://github.com/HoVDuc/solve-sudoku-computer-vision.git
-    cd solve-sudoku-computer-vision
+```
+
+## Run
+
+```bash
+    # Run file program.py
+    python program.py
 ```
