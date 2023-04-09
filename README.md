@@ -1,5 +1,6 @@
 # solve-sudoku-computer-vision
 solve sudoku puzzles with computer vision
+## Introduction 
 
 ## Installation
 
@@ -26,26 +27,27 @@ solve sudoku puzzles with computer vision
     # Cài đặt các gói thư viện cần thiết
     python -m pip install -r requirements.txt
 ```
+Cài đặt torch và torchvision CPU
 ```bash
-    # Cài Pytorch và torchvision nếu sử dụng CPU
+    #CPU
     pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 ```
+hoặc CUDA
 ```bash
-    # Cài Pytorch và torchvision nếu sử dụng cuda
+    #CUDA
     pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu116
 ```
 
 ## Run
 
+Download trained model lưu trong thư mục `weights`
 ```bash
     # Download model weights
-    mkdir weights
-    cd weights
     pip install -U --no-cache-dir gdown --pre
     gdown 1-Nx4iIv2RBlQ6uEhTo-jLHPg9XPer6w3
-    cd ..
 ```
 
+Chạy chương trình
 ```bash
     # Run file program.py
     python program.py
