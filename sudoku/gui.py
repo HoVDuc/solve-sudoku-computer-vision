@@ -152,7 +152,6 @@ class GUI:
 
     def selectImage(self):
         filetype = (
-            ('All file', '*.*'),
             ('image files', '*.jpg'),
             ('image files', '*.png'),
             ('All file', '*.*')
