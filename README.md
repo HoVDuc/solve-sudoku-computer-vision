@@ -24,7 +24,7 @@ Kết quả thực nghiệm trên các bộ dữ liệu thực tế đã cho th�
 ### Tạo môi trường
 ```bash
     # Tạo môi trường với conda
-    conda create -n sudoku_env
+    conda create -n sudoku_env python=3.8
     conda activate sudoku_env
 ```
 
