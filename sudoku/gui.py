@@ -68,28 +68,28 @@ class GUI:
         s.configure(style="my.TButton", font=('Console', 20))
         self.btn_selectImage = ttk.Button(
             self.canvas_buttom, text='Select image', padding=(20, 10), style='my.TButton', command=self.selectImage)
-        self.btn_selectImage.pack(side=tk.LEFT)
+        self.btn_selectImage.grid(column=0, row=0)
 
         self.btn_run = ttk.Button(
             self.canvas_buttom, text='Run', padding=(20, 10), style='my.TButton', command=self.feature_extracter)
-        self.btn_run.pack(side=tk.LEFT)
+        self.btn_run.grid(column=1, row=0)
 
         self.btn_test = ttk.Button(
             self.canvas_buttom, text='Test', padding=(20, 10), style='my.TButton', command=self.getNumber2Entry
         )
-        self.btn_test.pack(side=tk.LEFT)
+        self.btn_test.grid(column=2, row=0)
 
         self.btn_back = ttk.Button(
             self.canvas_buttom, text='Back', padding=(20, 10), style='my.TButton', command=self.back_canvas)
-        self.btn_back.pack(side=tk.LEFT)
+        self.btn_back.grid(column=0, row=1)
 
         self.btn_save = ttk.Button(
             self.canvas_buttom, text="Save", padding=(20, 10), style='my.TButton', command=self.save)
-        self.btn_save.pack(side=tk.LEFT)
+        self.btn_save.grid(column=1, row=1)
 
         self.btn_delete = ttk.Button(
             self.canvas_buttom, text="Reset", padding=(20, 10), style='my.TButton', command=self.reset)
-        self.btn_delete.pack(side=tk.LEFT)
+        self.btn_delete.grid(column=2, row=1)
 
     def update(self):
         try:
