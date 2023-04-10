@@ -4,7 +4,7 @@ solve sudoku puzzles with computer vision
 
 Ứng dụng thị giác máy tính và học máy đã trở thành một lĩnh vực đầy triển vọng trong nhiều ứng dụng thực tế. Giới thiệu một ứng dụng thị giác máy tính và học máy để giải quyết bài toán Sudoku. Sudoku là một trò chơi ô số học với quy tắc đơn giản là điền các số từ 1 đến 9 vào một lưới 9x9 sao cho mỗi hàng, mỗi cột và mỗi ô vuông 3x3 con đều chứa đủ các số từ 1 đến 9 mà không bị trùng lặp.
 
-Ứng dụng của này sử dụng kỹ thuật thị giác máy tính để nhận diện và trích xuất dữ liệu từ hình ảnh Sudoku được chụp từ thiết bị di động hoặc máy tính cá nhân. Sau đó, dữ liệu này được đưa vào một thuật toán học máy để giải quyết bài toán Sudoku. Thuật toán học máy sử dụng phương pháp tìm kiếm và giải quyết đệ quy để tìm ra lời giải đúng cho bài toán Sudoku.
+Ứng dụng này sử dụng kỹ thuật thị giác máy tính để nhận diện và trích xuất dữ liệu từ hình ảnh Sudoku được chụp từ thiết bị di động hoặc máy tính cá nhân. Sau đó, dữ liệu này được đưa vào một thuật toán học máy để giải quyết bài toán Sudoku. Thuật toán học máy sử dụng phương pháp tìm kiếm và giải quyết đệ quy để tìm ra lời giải đúng cho bài toán Sudoku.
 
 Kết quả thực nghiệm trên các bộ dữ liệu thực tế đã cho thấy ứng dụng này có khả năng giải quyết bài toán Sudoku với độ chính xác cao và thời gian giải quyết nhanh.
 
