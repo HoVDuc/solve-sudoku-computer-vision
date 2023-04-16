@@ -42,6 +42,15 @@ class GUI:
         entry.focus_get()
 
         return _canvas, entry
+    
+    def useCamera(self):
+        cap = cv2.VideoCapture(0)
+        while True:
+            ret, frame = cap.read()
+            cv2.imshow('img', frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
     def create_canvas(self):
         self.canvas = tk.Canvas(self.root, width=self.canvas_size*2, height=self.canvas_size)
@@ -52,7 +61,13 @@ class GUI:
 
         self.canvas_func_buttom = tk.Canvas(self.canvas_buttom, width=250, height=250)
         self.canvas_func_buttom.pack(pady=(0, 0))
-        
+
+        self.canvas_func_top = tk.Canvas(self.canvas_func_buttom)
+        self.canvas_func_top.pack(pady=(0, 0))
+
+        self.canvas_func_bottom = tk.Canvas(self.canvas_func_buttom)
+        self.canvas_func_bottom.pack(pady=(0, 0))
+
         self.canvas_num_buttom = tk.Canvas(self.canvas_buttom, width=250, height=250)
         self.canvas_num_buttom.pack(pady=(10, 0))
 
@@ -112,30 +127,35 @@ class GUI:
     def create_button(self):
         s = ttk.Style()
         s.configure(style="my.TButton", font=('Helvetica', 10))
+
+        self.btn_video = ttk.Button(
+            self.canvas_func_top, text='Video', padding=(20, 10), style='my.TButton', command=self.useCamera)
+        self.btn_video.pack(side=tk.LEFT)
+
         self.btn_selectImage = ttk.Button(
-            self.canvas_func_buttom, text='Select image', padding=(20, 10), style='my.TButton', command=self.selectImage)
-        self.btn_selectImage.grid(column=0, row=0)
+            self.canvas_func_top, text='Select image', padding=(20, 10), style='my.TButton', command=self.selectImage)
+        self.btn_selectImage.pack(side=tk.LEFT)
 
         self.btn_run = ttk.Button(
-            self.canvas_func_buttom, text='Run', padding=(20, 10), style='my.TButton', command=self.feature_extracter)
-        self.btn_run.grid(column=1, row=0)
+            self.canvas_func_top, text='Run', padding=(20, 10), style='my.TButton', command=self.feature_extracter)
+        self.btn_run.pack(side=tk.LEFT)
 
         self.btn_test = ttk.Button(
-            self.canvas_func_buttom, text='Test', padding=(20, 10), style='my.TButton', command=self.getNumber2Entry
+            self.canvas_func_top, text='Test', padding=(20, 10), style='my.TButton', command=self.getNumber2Entry
         )
-        self.btn_test.grid(column=2, row=0)
+        self.btn_test.pack(side=tk.LEFT)
 
         self.btn_back = ttk.Button(
-            self.canvas_func_buttom, text='Back', padding=(20, 10), style='my.TButton', command=self.back_canvas)
-        self.btn_back.grid(column=0, row=1)
+            self.canvas_func_bottom, text='Back', padding=(20, 10), style='my.TButton', command=self.back_canvas)
+        self.btn_back.pack(side=tk.LEFT)
 
         self.btn_save = ttk.Button(
-            self.canvas_func_buttom, text="Save", padding=(20, 10), style='my.TButton', command=self.save)
-        self.btn_save.grid(column=1, row=1)
+            self.canvas_func_bottom, text="Save", padding=(20, 10), style='my.TButton', command=self.save)
+        self.btn_save.pack(side=tk.LEFT)
 
         self.btn_delete = ttk.Button(
-            self.canvas_func_buttom, text="Reset", padding=(20, 10), style='my.TButton', command=self.reset)
-        self.btn_delete.grid(column=2, row=1)
+            self.canvas_func_bottom, text="Reset", padding=(20, 10), style='my.TButton', command=self.reset)
+        self.btn_delete.pack(side=tk.LEFT)
 
     def update(self):
         try:
