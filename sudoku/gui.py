@@ -42,15 +42,24 @@ class GUI:
         entry.focus_get()
 
         return _canvas, entry
-    
+
     def useCamera(self):
         cap = cv2.VideoCapture(0)
         while True:
-            ret, frame = cap.read()
-            cv2.imshow('img', frame)
-
+            _, frame = cap.read()
+            cv2.imshow('video', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+
+        cap.release()
+        cv2.destroyAllWindows()
+        self.img = frame
+        im = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        im = cv2.resize(im, dsize=(510, 510))
+        im = Image.fromarray(im)
+        self.photo = ImageTk.PhotoImage(im)
+
+        self.canvas1.after(1, self.update())
 
     def create_canvas(self):
         self.canvas = tk.Canvas(self.root, width=self.canvas_size*2, height=self.canvas_size)
@@ -156,6 +165,8 @@ class GUI:
         self.btn_delete = ttk.Button(
             self.canvas_func_bottom, text="Reset", padding=(20, 10), style='my.TButton', command=self.reset)
         self.btn_delete.pack(side=tk.LEFT)
+
+
 
     def update(self):
         try:
