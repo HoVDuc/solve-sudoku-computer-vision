@@ -1,7 +1,7 @@
 Global:
-  use_gpu: true
+  use_gpu: false
   save_model_dir: ./weights/
-  epoch_num: 20
+  epoch_num: 10
   use_checkpoints: false
   checkpoint_dir: ./weights/pytorch_20230409_001728.pth
 
@@ -14,6 +14,9 @@ Optimizer:
   name: Adam
   learning_rate: 1e-3
 
+Loss:
+  name: CE
+
 Dataloader:
   imgs_size: 32
   test_size: 0.3
@@ -22,7 +25,7 @@ Dataloader:
 
 Train:
   dataset: NumberDataset
-  data_dir: ./train_data/dataset/
+  data_dir: ../../Datasets/Classification/dataset/
 
 FeatureExtracter:
   Shape:
