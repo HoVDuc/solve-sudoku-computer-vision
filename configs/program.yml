@@ -1,8 +1,8 @@
 Global:
   use_gpu: true
   save_model_dir: ./weights/
-  epoch_num: 50
-  use_checkpoints: true
+  epoch_num: 20
+  use_checkpoints: false
   checkpoint_dir: ./weights/pytorch_20230409_001728.pth
 
 Architecture:
@@ -12,7 +12,7 @@ Architecture:
 
 Optimizer:
   name: Adam
-  learning_rate: 5e-7
+  learning_rate: 1e-3
 
 Dataloader:
   imgs_size: 32
@@ -22,14 +22,14 @@ Dataloader:
 
 Train:
   dataset: NumberDataset
-  data_dir: ./train_data/number_classifer/
+  data_dir: ./train_data/dataset/
 
 FeatureExtracter:
   Shape:
     width: 450
     height: 450
   size_image: 32
-  model_dir: ./weights/best_checkpoint-2.pth
+  model_dir: ./weights/pytorch_20230522_025336.pth
   probability_threshold: 0.98
 
 GUI:

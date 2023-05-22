@@ -1,7 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
 from torchvision import datasets
-from torchvision.transforms import Resize, Compose, ColorJitter, RandomRotation, ToTensor
+from torchvision.transforms import Resize, Compose, ColorJitter, RandomRotation, ToTensor, GaussianBlur
 
 
 class DataLoader:
@@ -12,8 +12,7 @@ class DataLoader:
     def load_data(self):
         transform = Compose([Resize(32),
                              RandomRotation(20),
-                             RandomRotation(90),
-                             RandomRotation(270),
+                             GaussianBlur(3),
                              ColorJitter(hue=.05, saturation=.05),
                              ToTensor()])
         dataset = datasets.ImageFolder(self.path, transform=transform)
@@ -43,16 +42,17 @@ class DataLoader:
 
 
 if __name__ == "__main__":
-    PATH = "./train_data/number_classifer/"
+    PATH = "./train_data/dataset/"
     dataload = DataLoader(PATH)
     dataset = dataload.load_data()
-    train_set, val_set = dataload.split_data(dataset, 0.2)
-    train_loader = dataload.dataloader(train_set)
-    val_loader = dataload.dataloader(val_set)
-    print(len(train_set))
-    print(len(val_set))
-    test = next(iter(train_loader))
-    dataload.display_data(test)
+    dataload.kfold_split(dataset)
+    # train_set, val_set = dataload.split_data(dataset, 0.2)
+    # train_loader = dataload.dataloader(train_set)
+    # val_loader = dataload.dataloader(val_set)
+    # print(len(train_set))
+    # print(len(val_set))
+    # test = next(iter(train_loader))
+    # dataload.display_data(test)
 
     # dataloader = torch.utils.data.DataLoader(dataset,
     #                                      batch_size=32,
