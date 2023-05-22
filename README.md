@@ -51,6 +51,8 @@ Tải trained mode rồi lưu vào trong thư mục `solve-sudoku-computer-visio
 ```bash 
     # Download trained model
     gdown 1-Nx4iIv2RBlQ6uEhTo-jLHPg9XPer6w3
+    # or
+    wget https://github.com/HoVDuc/solve-sudoku-computer-vision/releases/download/v0.1/best_checkpoint.pth
 ```
 
 Nếu khi tải bị Permission denied thì chạy câu lệnh sau rồi chạy lại câu lệnh trên
