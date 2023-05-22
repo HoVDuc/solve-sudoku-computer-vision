@@ -25,28 +25,6 @@ class Train:
     def __init__(self):
         self.write = SummaryWriter('runs/sudoku_experiment')
 
-    def load_data_kfold(self):
-        folders = glob.glob(self.data_dir + "/*/")
-
-        data = {
-            'file': [],
-            'label': []
-        }
-        for folder in folders:
-            files = [os.path.basename(file) for file in glob.glob(folder + '/*')]
-            for file in files:
-                data['file'].append(file)
-                data['label'].append(pathlib.PurePath(folder).name)
-
-        return data
-
-    def kfold_split(self):
-        data = self.load_data_kfold()
-        df = pd.DataFrame(data)
-        df_sample = df.sample(frac=1).reset_index(drop=True)
-        kfold = KFold()
-        return df_sample, kfold
-
     def check_gpu(self, use_gpu):
         if use_gpu and not torch.cuda.is_available():
             print("Device not supported gpu")
@@ -148,28 +126,6 @@ class Train:
             train_set, self.batch_size, self.shuffle)
         val_loader = loader.dataloader(val_set, len(val_set), shuffle=False)
         return train_loader, val_loader
-
-    def train_kfold(self):
-        df, kfold = self.kfold_split()
-        self.scheduler = OneCycleLR(
-                self.optim, max_lr=self.learning_rate, total_steps=self.epoch_num*len(df))
-        transform = Compose([Resize(32),
-                             RandomRotation(20),
-                             GaussianBlur(3),
-                             ColorJitter(hue=.05, saturation=.05),
-                             ToTensor()])
-
-        for i, (train_indices, valid_indices) in enumerate(kfold.split(df)):
-            print('Fold:', i+1)
-            df_train = df.loc[train_indices]
-            df_valid = df.loc[valid_indices]
-            train_data = SudokuData(self.data_dir, df_train, self.cuda, transform)
-            valid_data = SudokuData(self.data_dir, df_valid, self.cuda, transform)
-            self.train_loader = torch.utils.data.DataLoader(train_data,
-                                                       batch_size=self.batch_size)
-            self.val_loader = torch.utils.data.DataLoader(valid_data,
-                                                       batch_size=self.batch_size)
-            self.train()
 
     def run(self, config):
         use_kfold = True
